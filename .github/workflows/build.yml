@@ -3,6 +3,8 @@ name: Build
 on:
   push:
     branches: ["main"]
+  release:
+    types: ["published"]
 
 jobs:
   build:
@@ -29,5 +31,6 @@ jobs:
   production:
     uses: ./.github/workflows/release.yml
     needs: build
+    if: ${{ github.event_name == 'release' }}
     with:
       environment: production
