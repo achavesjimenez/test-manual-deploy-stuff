@@ -25,3 +25,9 @@ jobs:
     needs: build
     with:
       environment: not-production
+
+  production:
+    uses: ./.github/workflows/release.yml
+    needs: build
+    with:
+      environment: production
