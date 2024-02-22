@@ -24,3 +24,4 @@ jobs:
         uses: ./.github/workflows/release.yml@main
         with:
           environment: uat
+          build: ${{ github.run_id }}
