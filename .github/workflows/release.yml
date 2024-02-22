@@ -29,6 +29,7 @@ jobs:
           echo "Would deploy to $ENVIRONMENT"
           echo "Using build $BUILD"
           ls -lR
+          cat target/build_artifact/README.md
         env:
           BUILD: ${{ inputs.build }}
           ENVIRONMENT: ${{ inputs.environment }}

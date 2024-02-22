@@ -5,7 +5,7 @@ on:
     inputs:
       build:
         description: "Build to release"
-        default: "1.0.0"
+        required: true
 
       environment:
         description: "Environment to release to"
@@ -17,12 +17,8 @@ on:
           - production
 
 jobs:
-  trigger_release:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Release
-        uses: ./.github/workflows/release.yml
-        with:
-          environment: ${{ inputs.environment }}
-          build: ${{ inputs.build }}
+  trigger:
+    uses: ./.github/workflows/release.yml
+    with:
+      environment: ${{ inputs.environment }}
+      build: ${{ inputs.build }}
