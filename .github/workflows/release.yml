@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      build:
+        description: "Build to release"
+        default: ${{ github.run_id }}
+        type: string
+
+      environment:
+        description: "Environment to release to"
+        default: "uat"
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download the build
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.inputs.build }}
+
+      - name: Would deploy
+        run: |
+          echo "Would deploy to $ENVIRONMENT"
+          ls -l
+          cat README.md
+        env:
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
