@@ -22,13 +22,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           run-id: ${{ inputs.build }}
+          path: target
 
       - name: Would deploy
         run: |
           echo "Would deploy to $ENVIRONMENT"
           echo "Using build $BUILD"
-          ls -l
-          cat README.md
+          ls -lR
         env:
           BUILD: ${{ inputs.build }}
           ENVIRONMENT: ${{ inputs.environment }}
