@@ -6,13 +6,13 @@ on:
     inputs:
       environment:
         description: "Environment to release to"
+        type: string
         required: true
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
+    environment: ${{ inputs.environment }}
 
     steps:
       - name: Download the build
