@@ -16,6 +16,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
 
     steps:
       - name: Download the build
