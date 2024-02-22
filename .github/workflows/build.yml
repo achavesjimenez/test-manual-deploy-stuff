@@ -20,8 +20,8 @@ jobs:
           name: build_artifact
           path: README.md
 
-      - name: Release to UAT
-        uses: ./.github/workflows/release.yml@main
-        with:
-          environment: uat
-          build: ${{ github.run_id }}
+  release_to_uat:
+    uses: ./.github/workflows/release.yml
+    with:
+      environment: uat
+      build: ${{ github.run_id }}

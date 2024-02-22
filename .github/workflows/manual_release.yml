@@ -17,7 +17,7 @@ on:
           - production
 
 jobs:
-  build:
+  trigger_release:
     runs-on: ubuntu-latest
 
     steps:
