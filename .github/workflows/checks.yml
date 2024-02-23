@@ -1,7 +1,9 @@
 ---
 name: Checks
 
-on: [push]
+on:
+  workflow_call: # This will trigger the workflow for any workflow call
+  push: # No branches specified, so it will trigger on pushes to any branch
 
 jobs:
   build:
