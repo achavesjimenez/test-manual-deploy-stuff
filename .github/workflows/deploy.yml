@@ -1,16 +1,16 @@
-name: Release
+name: Deploy
 run-name: Release to ${{ inputs.environment }}
 
 on:
   workflow_call:
     inputs:
       environment:
-        description: "Environment to release to"
+        description: "Environment to deploy to"
         type: string
         required: true
 
 jobs:
-  release:
+  deploy:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 

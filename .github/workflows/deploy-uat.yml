@@ -1,0 +1,17 @@
+---
+name: Deploy-UAT
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yml
+
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    needs: checks
+    with:
+      environment: uat

@@ -1,0 +1,16 @@
+---
+name: Deploy-Prod
+
+on:
+  release:
+    types: ["published"]
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yml
+
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    needs: checks
+    with:
+      environment: production
