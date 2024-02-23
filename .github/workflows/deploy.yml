@@ -47,7 +47,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_S3_BUCKET: lambda-functions-uat-openrail/openrail
+          AWS_S3_BUCKET: lambda-functions-${{ inputs.environment }}-openrail/openrail
           SRC: openrail.zip
           DEST: openrail.zip
 
