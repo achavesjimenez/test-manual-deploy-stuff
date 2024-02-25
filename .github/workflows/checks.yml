@@ -12,11 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: print content of README.md
+        run: |
+          echo "Printing content of README.md"
+          cat README.md
+
       - name: Do the build
         run: echo "A build step" >> README.md
 
       - name: Upload the build
         uses: actions/upload-artifact@v4
         with:
-          name: build_artifact
-          path: README.md
+          name: built_code
+          path: .

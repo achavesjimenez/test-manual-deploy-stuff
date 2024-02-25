@@ -23,31 +23,45 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
-      - name: Download the build
+      - name: Download the artifacts
         uses: actions/download-artifact@v4
         with:
-          path: target
+          path: artifacts
+
+      - name: print content of README.md
+        run: |
+          ls -la ./artifacts
+          echo "Printing content of README.md"
+          cat ./artifacts/built_code/README.md
+
+      # TODO: Test if can store something in s3 by trying out the
+
+      - name: Zip code
+        run: |
+          cd ./artifacts/built_code
+          zip -r openrail.zip .
 
       - name: Would deploy
         run: |
           echo "Would deploy to $ENVIRONMENT"
-          echo "${AWS_ACCESS_KEY_ID:0:1}"
-          ls -lR
-          cat target/build_artifact/README.md
+          echo "this is the 2 first chars ${AWS_ACCESS_KEY_ID:0:2}"
+          ls -lR ./artifacts
+          cat artifacts/built_code/README.md
         env:
           ENVIRONMENT: ${{ inputs.environment }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-
-      - name: Zip code
-        run: |
-          zip openrail.zip target/build_artifact/README.md
-
+#
+#      - name: Zip code
+#        run: |
+#          zip openrail.zip target/build_artifact/README.md
+#
       - name: Upload to S3
-        uses: jakejarvis/s3-sync-action@v0.5.0
+        uses: jakejarvis/s3-sync-action@v0.5.1
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_S3_BUCKET: lambda-functions-${{ inputs.environment }}-openrail/openrail
-          SRC: openrail.zip
-          DEST: openrail.zip
+          AWS_S3_BUCKET: lambda-functions-${{ inputs.environment }}-openrail
+          AWS_REGION: eu-west-1
+          SOURCE_DIR: ./artifacts/built_code/openrail.zip
+          DEST_DIR: openrail/openrail.zip
 
