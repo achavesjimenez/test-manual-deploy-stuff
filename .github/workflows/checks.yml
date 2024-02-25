@@ -20,8 +20,11 @@ jobs:
       - name: Do the build
         run: echo "A build step" >> README.md
 
+      - name: create zip
+        run: zip openrail.zip README.md
+
       - name: Upload the build
         uses: actions/upload-artifact@v4
         with:
           name: built_code
-          path: .
+          path: openrail.zip
