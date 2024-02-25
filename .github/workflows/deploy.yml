@@ -60,8 +60,8 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_S3_BUCKET: lambda-functions-${{ inputs.environment }}-openrail
+          AWS_S3_BUCKET: lambda-${{ inputs.environment }}-openrail
           AWS_REGION: eu-west-1
-          SOURCE_DIR: ./artifacts/built_code/openrail.zip
-          DEST_DIR: openrail/openrail.zip
+          SOURCE_DIR: artifacts/built_code/README.md
+          DEST_DIR: openrail/readme.txt
 
