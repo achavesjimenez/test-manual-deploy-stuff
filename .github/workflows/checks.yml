@@ -27,4 +27,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: built_code
-          path: openrail.zip
+          path: ./openrail.zip
+

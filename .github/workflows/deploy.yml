@@ -36,14 +36,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-      - name: list content of artifacts
-        run: |
-          ls -lR ./artifacts
+      - name: list contents
+        run: ls -lR
 
       - name: Copy zip to s3
         run: aws s3 cp ./artifacts/built_code/openrail.zip s3://lambda-${{ inputs.environment }}/openrail/openrail.zip
 
-#
 #      - name: Zip code
 #        run: |
 #          zip openrail.zip target/build_artifact/README.md
@@ -58,11 +56,3 @@ jobs:
 #      - name: list env vars
 #        run: env
 ##
-#      - name: Upload to S3
-#        uses: jakejarvis/s3-sync-action@v0.5.1
-#        env:
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          AWS_S3_BUCKET: lambda-${{ inputs.environment }}-openrail
-#          AWS_REGION: eu-west-1
-
