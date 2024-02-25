@@ -54,6 +54,16 @@ jobs:
 #      - name: Zip code
 #        run: |
 #          zip openrail.zip target/build_artifact/README.md
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: list env vars
+        run: env
 #
       - name: create file
         run: touch file_to_upload.txt
@@ -64,6 +74,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_BUCKET: lambda-${{ inputs.environment }}-openrail
           AWS_REGION: eu-west-1
-          SOURCE_DIR: file_to_upload.txt
-          DEST_DIR: openrail/readme.txt
 
