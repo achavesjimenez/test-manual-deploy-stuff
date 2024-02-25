@@ -40,7 +40,7 @@ jobs:
         run: ls -lR
 
       - name: Copy zip to s3
-        run: aws s3 cp ./artifacts/openrail.zip s3://lambda-${{ inputs.environment }}/openrail/openrail.zip
+        run: aws s3 cp ./artifacts/openrail.zip s3://lambda-${{ inputs.environment }}-openrail/openrail/openrail.zip
 
 #      - name: Zip code
 #        run: |
