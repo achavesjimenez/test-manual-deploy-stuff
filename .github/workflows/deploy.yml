@@ -55,6 +55,8 @@ jobs:
 #        run: |
 #          zip openrail.zip target/build_artifact/README.md
 #
+      - name: create file
+        run: touch file_to_upload.txt
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         env:
@@ -62,6 +64,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_BUCKET: lambda-${{ inputs.environment }}-openrail
           AWS_REGION: eu-west-1
-          SOURCE_DIR: artifacts/built_code/README.md
+          SOURCE_DIR: file_to_upload.txt
           DEST_DIR: openrail/readme.txt
 
