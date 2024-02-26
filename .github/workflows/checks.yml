@@ -30,5 +30,4 @@ jobs:
       - name: Print Used env
         run: |
           echo "Env used is ${{ inputs.environment }}"
-          echo "Human redable env is ${{ secrets.ENV_NAME }}"
-
+          echo "Human redable env is ${{ secrets.ENV_NAME:0:2 }}--${{ secrets.ENV_NAME: -2 }}"
