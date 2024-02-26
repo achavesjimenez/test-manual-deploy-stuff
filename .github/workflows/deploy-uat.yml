@@ -9,6 +9,9 @@ on:
 jobs:
   checks:
     uses: ./.github/workflows/checks.yml
+    with:
+      environment: uat
+    secrets: inherit
 
   deploy:
     uses: ./.github/workflows/deploy.yml

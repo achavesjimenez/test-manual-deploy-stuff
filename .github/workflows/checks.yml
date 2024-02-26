@@ -3,6 +3,14 @@ name: Checks
 
 on:
   workflow_call: # This will trigger the workflow for any workflow call
+    secrets:
+      AWS_ACCESS_KEY:
+        description: "AWS access key"
+        required: true
+
+      AWS_SECRET_ACCESS_KEY:
+        description: "AWS secret access key"
+        required: true
   push: # No branches specified, so it will trigger on pushes to any branch
 
 jobs:
@@ -10,6 +18,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+      - name: list all lambda function names
+        run: |
+          query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
+          lambda_function_names=$(aws cloudformation list-stack-resources --stack-name buildcon2023 --query ${query_expression} --output text)
+          for name in ${lambda_function_names}
+            do
+              echo "Updating function ${name}"
+            done
+
       - uses: actions/checkout@v4
 
       - name: print content of README.md
