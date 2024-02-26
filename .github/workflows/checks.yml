@@ -25,9 +25,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
+    env:
+      READABLE_ENV: ${{ secrets.ENV_NAME }}
 
     steps:
       - name: Print Used env
         run: |
           echo "Env used is ${{ inputs.environment }}"
-          echo "Human redable env is ${{ secrets.ENV_NAME:0:2 }}--${{ secrets.ENV_NAME: -2 }}"
+          echo "Human readable env is ${MY_ENV_VAR:0:2}--${MY_ENV_VAR: -2}"
