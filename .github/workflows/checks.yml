@@ -2,7 +2,7 @@
 name: Checks
 
 on:
-  workflow_call: # This will trigger the workflow for any workflow call
+  workflow_call:
     inputs:
       environment:
         description: "Environment to deploy to"
@@ -20,6 +20,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
     steps:
       - name: Configure AWS Credentials
