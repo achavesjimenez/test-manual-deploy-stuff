@@ -32,4 +32,4 @@ jobs:
       - name: Print Used env
         run: |
           echo "Env used is ${{ inputs.environment }}"
-          echo "Human readable env is ${READABLE_ENV:0:2}--${READABLE_ENV: -2}"
+          echo "Human readable env is ${READABLE_ENV}"
