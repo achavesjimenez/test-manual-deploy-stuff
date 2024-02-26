@@ -17,43 +17,18 @@ on:
         description: "AWS secret access key"
         required: true
 
+      ENV_NAME:
+        description: "Human redable name of the env"
+        required: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
-      - name: list all lambda function names
+      - name: Print Used env
         run: |
-          query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
-          lambda_function_names=$(aws cloudformation list-stack-resources --stack-name buildcon2023 --query ${query_expression} --output text)
-          for name in ${lambda_function_names}
-            do
-              echo "Updating function ${name}"
-            done
-
-      - uses: actions/checkout@v4
-
-      - name: print content of README.md
-        run: |
-          echo "Printing content of README.md"
-          cat README.md
-
-      - name: Do the build
-        run: echo "A build step" >> README.md
-
-      - name: create zip
-        run: zip openrail.zip README.md
-
-      - name: Upload the build
-        uses: actions/upload-artifact@v4
-        with:
-          name: built_code
-          path: ./openrail.zip
+          echo "Env used is ${{ inputs.environment }}"
+          echo "Human redable env is ${{ secrets.ENV_NAME }}"
 

@@ -1,0 +1,12 @@
+---
+name: Deploy-UAT
+
+on:
+  push:
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yml
+    with:
+      environment: production
+    secrets: inherit
