@@ -9,4 +9,4 @@ jobs:
     uses: ./.github/workflows/checks.yml
 #    with:
 #      environment: uat
-    secrets: inherit
+#    secrets: inherit
