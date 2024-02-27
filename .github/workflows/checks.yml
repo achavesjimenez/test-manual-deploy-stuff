@@ -3,36 +3,33 @@ name: Checks
 
 on:
   workflow_call:
-#    inputs:
-#      environment:
-#        description: "Environment to deploy to"
-#        type: string
-#        required: true
-#    secrets:
-#      AWS_ACCESS_KEY:
-#        description: "AWS access key"
-#        required: true
-#
-#      AWS_SECRET_ACCESS_KEY:
-#        description: "AWS secret access key"
-#        required: true
-#
-#      ENV_NAME:
-#        description: "Human redable name of the env"
-#        required: true
+    inputs:
+      environment:
+        description: "Environment to deploy to"
+        type: string
+        required: true
+    secrets:
+      AWS_ACCESS_KEY:
+        description: "AWS access key"
+        required: true
+
+      AWS_SECRET_ACCESS_KEY:
+        description: "AWS secret access key"
+        required: true
+
+      ENV_NAME:
+        description: "Human redable name of the env"
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-#    environment: ${{ inputs.environment }}
-#    env:
-#      READABLE_ENV: ${{ secrets.ENV_NAME }}
+    environment: ${{ inputs.environment }}
+    env:
+      READABLE_ENV: ${{ secrets.ENV_NAME }}
 
     steps:
-      - name: print REPO_SECRET
-        run: echo "${{ secrets.REPO_SECRET }}" > .npmrc
-
-#      - name: Print Used env
-#        run: |
-#          echo "Env used is ${{ inputs.environment }}"
-#          echo "Human readable env is ...${READABLE_ENV: -10}"
+      - name: Print Used env
+        run: |
+          echo "Env used is ${{ inputs.environment }}"
+          echo "Human readable env is ...${READABLE_ENV: -10}"
