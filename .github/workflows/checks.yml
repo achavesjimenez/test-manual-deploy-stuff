@@ -29,6 +29,9 @@ jobs:
       READABLE_ENV: ${{ secrets.ENV_NAME }}
 
     steps:
+      - name: print REPO_SECRET
+        run: echo "${{ secrets.REPO_SECRET }}" > .npmrc
+
       - name: Print Used env
         run: |
           echo "Env used is ${{ inputs.environment }}"
