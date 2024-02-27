@@ -7,6 +7,6 @@ on:
 jobs:
   checks:
     uses: ./.github/workflows/checks.yml
-    with:
-      environment: uat
+#    with:
+#      environment: uat
     secrets: inherit
