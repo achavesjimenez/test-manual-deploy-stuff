@@ -20,7 +20,8 @@ jobs:
         run: |
           query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
           lambda_function_names=$(aws cloudformation list-stack-resources --stack-name buildcon2023 --query ${query_expression})
-          echo "names=$(jq -cn --argjson lambda_names "$lambda_function_names" 'lambda_names')" >> $GITHUB_OUTPUT
+          json_value=$(echo "$lambda_function_names" | jq -c '.')
+          echo "names=$json_value" >> $GITHUB_OUTPUT
     outputs:
       lambda_names: ${{ steps.generate-lambda-names.outputs.names }}
     environment: uat
@@ -32,7 +33,7 @@ jobs:
       matrix:
         lambda_name: ${{fromJson(needs.calculate-lambda-names.outputs.lambda_names)}}
     steps:
-      - run: echo "Updating code for lambda ${{ matrix.lambda_name }}"
+      - run: echo "Updating code for lambda ${{ matrix.lambda_name.target }}"
 
   checks:
     uses: ./.github/workflows/checks.yml
