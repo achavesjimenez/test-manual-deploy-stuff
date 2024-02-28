@@ -7,12 +7,14 @@ on:
 jobs:
   calculate-lambda-names:
     runs-on: ubuntu-latest
-    outputs:
-      id: lambda_names
     steps:
-      - run: |
+      - name: Generate lambda names
+        id: generate-lambda-names
+        run: |
           lambda_function_names=(lambda_1, lambda_2, lambda_3)
-          echo "::set-output name=lambda_names::${lambda_function_names}"
+          echo "names=$(jq -cn --argjson lambda_names "$lambda_function_names" '$lambda_names')" >> $GITHUB_OUTPUT
+    outputs:
+      lambda_names: ${{ steps.generate-lambda-names.outputs.names }}
 
   update_lambdas_code:
     needs: calculate-lambda-names
