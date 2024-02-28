@@ -33,7 +33,7 @@ jobs:
       matrix:
         lambda_name: ${{fromJson(needs.calculate-lambda-names.outputs.lambda_names)}}
     steps:
-      - run: echo "Updating code for lambda ${{ matrix.lambda_name.target }}"
+      - run: echo "Updating code for lambda ${{ matrix.lambda_name }}"
 
   checks:
     uses: ./.github/workflows/checks.yml
