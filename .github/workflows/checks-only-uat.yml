@@ -8,6 +8,18 @@ jobs:
   calculate-lambda-names:
     runs-on: ubuntu-latest
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - run: |
+          query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
+          lambda_function_names=$(aws cloudformation list-stack-resources --stack-name openrail --query ${query_expression} --output text)
+          echo "names=${lambda_function_names}"
+
       - name: Generate lambda names
         id: generate-lambda-names
         run: |
@@ -15,6 +27,7 @@ jobs:
           echo "names=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${lambda_function_names[@]}")" >> $GITHUB_OUTPUT
     outputs:
       lambda_names: ${{ steps.generate-lambda-names.outputs.names }}
+    environment: uat
 
   update_lambdas_code:
     needs: calculate-lambda-names
