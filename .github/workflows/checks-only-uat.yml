@@ -5,6 +5,14 @@ on:
   push:
 
 jobs:
+  update_lambdas_code:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lambda_name: [lambda_1, lambda_2, lambda_3]
+    steps:
+      - run: echo "Updating code for lambda ${{ matrix.lambda_name }}"
+
   checks:
     uses: ./.github/workflows/checks.yml
     with:
