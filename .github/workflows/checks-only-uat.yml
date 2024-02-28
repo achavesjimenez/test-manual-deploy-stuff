@@ -11,7 +11,7 @@ jobs:
       - name: Generate lambda names
         id: generate-lambda-names
         run: |
-          lambda_function_names=(lambda_1, lambda_2, lambda_3)
+          lambda_function_names=(lambda_1 lambda_2 lambda_3)
           echo "names=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${lambda_function_names[@]}")" >> $GITHUB_OUTPUT
     outputs:
       lambda_names: ${{ steps.generate-lambda-names.outputs.names }}
