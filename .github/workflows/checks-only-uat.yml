@@ -5,11 +5,21 @@ on:
   push:
 
 jobs:
+  calculate-lambda-names:
+    runs-on: ubuntu-latest
+    outputs:
+      id: lambda_names
+    steps:
+      - run: |
+          lambda_function_names=(lambda_1, lambda_2, lambda_3)
+          echo "::set-output name=lambda_names::${lambda_function_names}"
+
   update_lambdas_code:
+    needs: calculate-lambda-names
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        lambda_name: [lambda_1, lambda_2, lambda_3]
+        lambda_name: ${{fromJson(needs.calculate-lambda-names.outputs.lambda_names)}}
     steps:
       - run: echo "Updating code for lambda ${{ matrix.lambda_name }}"
 
