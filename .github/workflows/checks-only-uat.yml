@@ -15,15 +15,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-      - run: |
-          query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
-          lambda_function_names=$(aws cloudformation list-stack-resources --stack-name buildcon2023 --query ${query_expression} --output text)
-          echo "names=${lambda_function_names}"
-
       - name: Generate lambda names
         id: generate-lambda-names
         run: |
-          lambda_function_names=(lambda_1 lambda_2 lambda_3)
+          query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
+          lambda_function_names=$(aws cloudformation list-stack-resources --stack-name buildcon2023 --query ${query_expression} --output text)
           echo "names=$(jq --compact-output --null-input '$ARGS.positional' --args -- "${lambda_function_names[@]}")" >> $GITHUB_OUTPUT
     outputs:
       lambda_names: ${{ steps.generate-lambda-names.outputs.names }}
