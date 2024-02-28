@@ -20,7 +20,7 @@ jobs:
         run: |
           query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
           lambda_function_names=$(aws cloudformation list-stack-resources --stack-name buildcon2023 --query ${query_expression})
-          echo "names="\"$lambda_function_names\"" >> $GITHUB_OUTPUT
+          echo "names=${lambda_function_names}" >> $GITHUB_OUTPUT
     outputs:
       lambda_names: ${{ steps.generate-lambda-names.outputs.names }}
     environment: uat
