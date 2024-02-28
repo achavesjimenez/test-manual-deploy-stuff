@@ -29,9 +29,10 @@ jobs:
     needs: calculate-lambda-names
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.calculate-lambda-names.outputs.lambda_names)}}
+      matrix:
+        lambda_name: ${{fromJson(needs.calculate-lambda-names.outputs.lambda_names)}}
     steps:
-      - run: echo "Updating code for lambda ${{ matrix.target }}"
+      - run: echo "Updating code for lambda ${{ matrix.lambda_name.target }}"
 
   checks:
     uses: ./.github/workflows/checks.yml
