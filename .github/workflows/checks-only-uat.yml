@@ -17,7 +17,7 @@ jobs:
 
       - run: |
           query_expression='StackResourceSummaries[?ResourceType==`AWS::Lambda::Function`].PhysicalResourceId'
-          lambda_function_names=$(aws cloudformation list-stack-resources --stack-name openrail --query ${query_expression} --output text)
+          lambda_function_names=$(aws cloudformation list-stack-resources --stack-name buildcon2023 --query ${query_expression} --output text)
           echo "names=${lambda_function_names}"
 
       - name: Generate lambda names
